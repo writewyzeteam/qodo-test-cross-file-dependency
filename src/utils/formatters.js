@@ -7,16 +7,22 @@
  * Formats a price value with currency symbol
  * @param {number} amount - The price amount
  * @param {string} currency - Currency code (USD, EUR, GBP)
+ * @param {boolean} showDecimals - Whether to show decimal places (NEW PARAMETER)
  * @returns {string} Formatted price string
  */
-export function formatPrice(amount, currency = 'USD') {
+export function formatPrice(amount, currency = 'USD', showDecimals = true) {
   const symbols = {
     'USD': '$',
     'EUR': '€',
     'GBP': '£'
   };
   
-  return `${symbols[currency]}${amount.toFixed(2)}`;
+  // New logic: optionally hide decimals for whole numbers
+  if (showDecimals) {
+    return `${symbols[currency]}${amount.toFixed(2)}`;
+  } else {
+    return `${symbols[currency]}${Math.round(amount)}`;
+  }
 }
 
 /**
